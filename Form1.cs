@@ -12,13 +12,16 @@ namespace Part_8._5___Hang_Man
 {
     public partial class frmMain : Form
     {
+        //You can add words here if you want (all lower case)
         List<string> wordBank = new List<string>() {"bean", "aldworth", "maths", "bok choy",
-            "hang man", "anti tank missile" };
+            "hang man", "anti tank missile", "comically large spoon", "i dont know", "drinking vessel",
+            "paul is the best"};
         Random rng = new Random();
         string secretWord = "";
         string displayWord;
         string guessWord = "";
         int guessesUsed = 0;
+        string key;
         List<Image> images = new List<Image>() 
         {
             Properties.Resources.hangman_0, 
@@ -27,7 +30,7 @@ namespace Part_8._5___Hang_Man
             Properties.Resources.hangman_3, 
             Properties.Resources.hangman_4, 
             Properties.Resources.hangman_5
-        };
+        };       
 
         public void checkGuess(string guess)
         {
@@ -74,7 +77,6 @@ namespace Part_8._5___Hang_Man
                     control.Enabled = false;
                 }
                 lblPlayAgain.Visible = true;
-                btnQuit.Visible = true;
                 btnPlayAgain.Visible = true;
                 lblPlayAgain.Enabled = true;
                 btnPlayAgain.Enabled = true;
@@ -88,7 +90,6 @@ namespace Part_8._5___Hang_Man
                     control.Enabled = false;
                 }
                 lblPlayAgain.Visible = true;
-                btnQuit.Visible = true;
                 btnPlayAgain.Visible = true;
                 lblPlayAgain.Enabled = true;
                 btnPlayAgain.Enabled = true;
@@ -104,7 +105,7 @@ namespace Part_8._5___Hang_Man
 
         private void frmMain_Load(object sender, EventArgs e)
         {           
-            secretWord = wordBank[rng.Next(6)];
+            secretWord = wordBank[rng.Next(wordBank.Count())];
             for (int i = 0; i <= secretWord.Length - 1; i++)
             {
                 if (secretWord[i].ToString() == " ")
@@ -307,9 +308,8 @@ namespace Part_8._5___Hang_Man
         {
             lblPlayAgain.Visible = false;
             btnPlayAgain.Visible = false;
-            btnQuit.Visible = false;
             guessesUsed = 0;
-            secretWord = wordBank[rng.Next(6)];
+            secretWord = wordBank[rng.Next(wordBank.Count())];
             displayWord = "";
             guessWord = "";
             imgHangman.Image = Properties.Resources.hangman_0;
@@ -337,6 +337,24 @@ namespace Part_8._5___Hang_Man
         private void btnQuit_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            key = e.KeyCode.ToString();
+            foreach (Control control in Controls)
+            {
+                if (control is Button)
+                {
+                    if (control.Name == $"btn{key}")
+                        {
+                            control.Enabled = false;
+                            checkGuess(key.ToLower());
+                            checkWinLoss();
+                        }
+                }
+                
+            }
         }
     }
 }

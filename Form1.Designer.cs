@@ -426,7 +426,7 @@
             // 
             this.lblDisplayWord.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lblDisplayWord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDisplayWord.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayWord.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDisplayWord.Location = new System.Drawing.Point(16, 386);
             this.lblDisplayWord.Name = "lblDisplayWord";
             this.lblDisplayWord.Size = new System.Drawing.Size(330, 36);
@@ -460,13 +460,12 @@
             // btnQuit
             // 
             this.btnQuit.Font = new System.Drawing.Font("Comic Sans MS", 14.25F);
-            this.btnQuit.Location = new System.Drawing.Point(107, 223);
+            this.btnQuit.Location = new System.Drawing.Point(281, 531);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(144, 69);
+            this.btnQuit.Size = new System.Drawing.Size(70, 32);
             this.btnQuit.TabIndex = 31;
-            this.btnQuit.Text = "No";
+            this.btnQuit.Text = "Quit";
             this.btnQuit.UseVisualStyleBackColor = true;
-            this.btnQuit.Visible = false;
             this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
             // frmMain
@@ -507,9 +506,11 @@
             this.Controls.Add(this.btnO);
             this.Controls.Add(this.btnI);
             this.Controls.Add(this.btnL);
+            this.KeyPreview = true;
             this.Name = "frmMain";
             this.Text = "Hang Man";
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.imgHangman)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
