@@ -29,7 +29,6 @@ namespace Part_8._5___Hang_Man
             Properties.Resources.hangman_5
         };
 
-
         public void checkGuess(string guess)
         {
             if (secretWord.Contains(guess))
@@ -61,6 +60,7 @@ namespace Part_8._5___Hang_Man
             {
                 guessesUsed += 1;
                 imgHangman.Image = images[guessesUsed];
+                lblGuessesRemaining.Text = lblGuessesRemaining.Text.Replace($"{5 - (guessesUsed - 1)}", $"{5 - guessesUsed}");
             }
             lblDisplayWord.Text = displayWord;
         }
@@ -68,33 +68,54 @@ namespace Part_8._5___Hang_Man
         {
             if (!displayWord.Contains("_"))
             {
-                lblGuessesRemaining.Text = "You Win";
+                lblGuessesRemaining.Text = "You Win";               
+                foreach (Control control in Controls)
+                {
+                    control.Enabled = false;
+                }
+                lblPlayAgain.Visible = true;
+                btnQuit.Visible = true;
+                btnPlayAgain.Visible = true;
+                lblPlayAgain.Enabled = true;
+                btnPlayAgain.Enabled = true;
+                btnQuit.Enabled = true;
             }
             else if (displayWord.Contains("_") & guessesUsed == 5)
             {
                 lblGuessesRemaining.Text = "You lost";
+                foreach (Control control in Controls)
+                {
+                    control.Enabled = false;
+                }
+                lblPlayAgain.Visible = true;
+                btnQuit.Visible = true;
+                btnPlayAgain.Visible = true;
+                lblPlayAgain.Enabled = true;
+                btnPlayAgain.Enabled = true;
+                btnQuit.Enabled = true;
             }
 
         }
+
         public frmMain()
         {
             InitializeComponent();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
-        {
+        {           
             secretWord = wordBank[rng.Next(6)];
-            lblGuessesRemaining.Text = secretWord;
             for (int i = 0; i <= secretWord.Length - 1; i++)
             {
-                guessWord += "_";
                 if (secretWord[i].ToString() == " ")
                 {
                     displayWord += "  ";
+                    guessWord += " ";
                 }
                 else
                 {
                     displayWord += "_ ";
+                    guessWord += "_";
                 }                
                 lblDisplayWord.Text = displayWord;
             }
@@ -280,6 +301,42 @@ namespace Part_8._5___Hang_Man
             checkGuess("l");
             checkWinLoss();
             btnL.Enabled = false;
+        }
+
+        private void btnPlayAgain_Click(object sender, EventArgs e)
+        {
+            lblPlayAgain.Visible = false;
+            btnPlayAgain.Visible = false;
+            btnQuit.Visible = false;
+            guessesUsed = 0;
+            secretWord = wordBank[rng.Next(6)];
+            displayWord = "";
+            guessWord = "";
+            imgHangman.Image = Properties.Resources.hangman_0;
+            lblGuessesRemaining.Text = "Guesses Remaining: 5";
+            for (int i = 0; i <= secretWord.Length - 1; i++)
+            {
+                if (secretWord[i].ToString() == " ")
+                {
+                    displayWord += "  ";
+                    guessWord += " ";
+                }
+                else
+                {
+                    displayWord += "_ ";
+                    guessWord += "_";
+                }
+                lblDisplayWord.Text = displayWord;
+            }
+            foreach (Control control in Controls)
+            {
+                control.Enabled = true;
+            }
+        }
+
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
